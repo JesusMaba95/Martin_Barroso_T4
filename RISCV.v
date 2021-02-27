@@ -136,10 +136,24 @@ Register Rd_Reg_Data2
 );
 Mux_3_1 Mux_SrcA
 (
-	//.sel(AdrSrc_w),
+	//.sel(),
 	.In0(PC_w),
 	.In1(OldPC_w),
 	.In2(ReadReg1_Data_ff_w),
 	.Output(SrcA_w)
+);
+Mux_3_1 Mux_SrcB
+(
+	//.sel(),
+	.In0(ReadReg2_Data_ff_w),
+	.In1(imm_w),
+	.In2(32'h4),
+	.Output(SrcA_w)
+);
+ImmGen ImmGen_i 
+(   
+	.in(Instruction_w[31:7]),
+	//.ImmSel(ImmSel_w),
+   .imm(imm_w)
 );
 endmodule
