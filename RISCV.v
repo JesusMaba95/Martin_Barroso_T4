@@ -35,6 +35,8 @@ wire [31:0]SrcA_w;
 wire [31:0]SrcB_w;
 wire [31:0]imm_w;
 wire [31:0]ALUResult_w;
+wire [31:0]ALUResult_ff_w;
+wire [31:0]MuxResult_w;
 wire [2:0] ImmSel_w;
 wire PC_WR_w;
 wire AdrSrc_w;
@@ -48,7 +50,7 @@ ProgramCounter
 	//.clk(clk),
 	//.reset(reset),
 	//.enable(PC_WR_w),
-	//.NewPC(),
+	.NewPC(MuxResult_w),
 	.PCValue(PC_w)
 );
 
@@ -56,7 +58,7 @@ Mux_2_1 Mux_AdrSrc
 (
 	//.sel(AdrSrc_w),
 	.In0(PC_w),
-	//.In1(),
+	.In1(MuxResult_w),
 	.Output(Addr_w)
 
 );
@@ -114,7 +116,7 @@ RegisterFile
 	.WriteRegister(Instruction_w[11:7]),
 	.ReadRegister1(Instruction_w[19:15]),
 	.ReadRegister2(Instruction_w[24:20]),
-	//.WriteData(ReadReg2_Data_ff_w),	
+	.WriteData(MuxResult_w),
 	.ReadData1(ReadReg1_Data_w),
 	.ReadData2(ReadReg2_Data_w)
 
@@ -167,5 +169,22 @@ ArithmeticLogicUnit
 	.B(SrcB_w),
 	//.Zero(zero_w2),
 	.ALUResult(ALUResult_w)
+);
+Register ALu_ff
+(
+  //.clk(clk),
+  //.reset(reset),
+  //.enable(1'b1),
+  .DataInput(ALUResult_w),
+  .DataOutput(ALUResult_ff_w)
+  
+);
+Mux_3_1 ResultSrc_Mux
+(
+	//.sel(),
+	.In0(ALUResult_ff_w),
+	.In1(ReadData_w2),
+	.In2(ALUResult_w),
+	.Output(MuxResult_w)
 );
 endmodule
