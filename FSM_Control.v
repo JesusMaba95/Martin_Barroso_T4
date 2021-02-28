@@ -165,8 +165,6 @@ begin
 						ImmSrc    = 3'b000;
 					else if (opcode == S_type_SW )
 						ImmSrc    = 3'b001;
-					ALUsrcA   = 2'b01;
-					ImmSrc    = 3'bXXX;
 					ALUsrcA   = 2'b10;
 					ALUsrcB   = 2'b01;
 					ResultSrc = 2'bXX;
