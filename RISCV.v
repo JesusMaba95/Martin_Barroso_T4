@@ -33,6 +33,9 @@ wire [31:0]ReadReg1_Data_w;
 wire [31:0]ReadReg2_Data_w;
 wire [31:0]SrcA_w;
 wire [31:0]SrcB_w;
+wire [31:0]imm_w;
+wire [31:0]ALUResult_w;
+wire [2:0] ImmSel_w;
 wire PC_WR_w;
 wire AdrSrc_w;
 wire MemWr_w;
@@ -67,7 +70,7 @@ Instruction_Data_Memory
 IDMem
 (
 	.Address(Addr_w),
-	//.WriteData,
+	.WriteData(ReadReg2_Data_ff_w),
 	//.MemWrite(MemWr_w),
 	//.clk(clk),
 	.ReadData(ReadData_w)
@@ -107,11 +110,11 @@ RegisterFile
 (
 	//.clk(clk),
 	//.reset(rst),
-	.RegWrite(RegW_w),
+	//.RegWrite(RegW_w),
 	.WriteRegister(Instruction_w[11:7]),
 	.ReadRegister1(Instruction_w[19:15]),
 	.ReadRegister2(Instruction_w[24:20]),
-	//.WriteData(),	
+	//.WriteData(ReadReg2_Data_ff_w),	
 	.ReadData1(ReadReg1_Data_w),
 	.ReadData2(ReadReg2_Data_w)
 
@@ -148,12 +151,21 @@ Mux_3_1 Mux_SrcB
 	.In0(ReadReg2_Data_ff_w),
 	.In1(imm_w),
 	.In2(32'h4),
-	.Output(SrcA_w)
+	.Output(SrcB_w)
 );
 ImmGen ImmGen_i 
 (   
 	.in(Instruction_w[31:7]),
 	//.ImmSel(ImmSel_w),
    .imm(imm_w)
+);
+ALU
+ArithmeticLogicUnit 
+(
+	//.ALUOperation(AluOp_w),
+	.A(SrcA_w),
+	.B(SrcB_w),
+	//.Zero(zero_w2),
+	.ALUResult(ALUResult_w)
 );
 endmodule
