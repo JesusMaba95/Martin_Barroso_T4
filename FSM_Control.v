@@ -274,7 +274,14 @@ begin
 					ALUsrcA   = 2'b10;
 					ALUsrcB   = 2'b01;
 					ResultSrc = 2'bXX;
-					ALUCtrl   = 3'b010;
+					case(Funct3)
+						3'b000:
+							ALUCtrl   = 3'b010;
+						3'b001:
+							ALUCtrl   = 3'b100;
+						default:
+							ALUCtrl   = 3'b010;
+					endcase
 			  end
 			  S9_JAL:
 			  begin
