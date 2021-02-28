@@ -59,6 +59,7 @@ localparam S11_BNE       = 4'b1011;
 localparam S12_JALR      = 4'b1100;
 localparam S13_JALR      = 4'b1101;
 localparam S14_BNEQ      = 4'b1110;
+localparam S15_AUIPC     = 4'b1111;
 
 
 reg [3:0] state;
@@ -94,6 +95,8 @@ begin
 						   	 state <= S10_BEQ;
 								 else if(opcode == B_type && Funct3 == 3'b001)
 						   	 state <= S14_BNEQ;
+								 else if(opcode == U_type)
+								 state <= S15_AUIPC;
 					          else 
 					          state <= S1_DECODE;
 						S2_MEM_ADDR:
@@ -125,6 +128,8 @@ begin
 						       state <= S0_FETCH;
 					   S13_JALR:
 						       state <= S7_ALU_WB;
+					   S15_AUIPC:
+								 state <= S0_FETCH;
 						default: state <= S0_FETCH;
 				  endcase
 				end
@@ -340,6 +345,20 @@ begin
 					ALUsrcB   = 2'b00;
 					ResultSrc = 2'b00;
 					ALUCtrl   = 3'b011;//sub
+			  end
+			  S15_AUIPC:
+			  begin
+					PCWrite   = 1'b0;
+					AdrSrc    = 1'b0;
+					MemWrite  = 1'b0;
+					IRWrite   = 1'b0;
+					RegWrite  = 1'b1;
+					Branch    = 1'b0;
+					ImmSrc    = 3'b100;
+					ALUsrcA   = 2'b01;
+					ALUsrcB   = 2'b01;
+					ResultSrc = 2'b10;
+					ALUCtrl   = 3'b010;//sub
 			  end
 			  default:
 			  begin
