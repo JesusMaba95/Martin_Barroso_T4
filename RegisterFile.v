@@ -62,7 +62,7 @@ Register_Zero
 	
 	
 Register
-Register_at
+Register_ra
 (
 	.clk(clk),
 	.reset(reset),
@@ -74,7 +74,7 @@ Register_at
 
 	
 Register
-Register_v0
+Register_sp
 (
 	.clk(clk),
 	.reset(reset),
@@ -85,7 +85,7 @@ Register_v0
 
 
 Register
-Register_v1
+Register_gp
 (
 	.clk(clk),
 	.reset(reset),
@@ -97,7 +97,7 @@ Register_v1
 
 
 Register
-Register_a0
+Register_tp
 (
 	.clk(clk),
 	.reset(reset),
@@ -109,7 +109,7 @@ Register_a0
 
 
 Register
-Register_a1
+Register_t0
 (
 	.clk(clk),
 	.reset(reset),
@@ -121,7 +121,7 @@ Register_a1
 
 
 Register
-Register_a2
+Register_t1
 (
 	.clk(clk),
 	.reset(reset),
@@ -134,7 +134,7 @@ Register_a2
 
 
 Register
-Register_a3
+Register_t2
 (
 	.clk(clk),
 	.reset(reset),
@@ -146,7 +146,7 @@ Register_a3
 
 
 Register
-Register_t0
+Register_s0
 (
 	.clk(clk),
 	.reset(reset),
@@ -158,7 +158,7 @@ Register_t0
 
 
 Register
-Register_t1
+Register_s1
 (
 	.clk(clk),
 	.reset(reset),
@@ -170,7 +170,7 @@ Register_t1
 
 
 Register
-Register_t2
+Register_a0
 (
 	.clk(clk),
 	.reset(reset),
@@ -182,7 +182,7 @@ Register_t2
 
 
 Register
-Register_t3
+Register_a1
 (
 	.clk(clk),
 	.reset(reset),
@@ -194,7 +194,7 @@ Register_t3
 
 
 Register
-Register_t4
+Register_a2
 (
 	.clk(clk),
 	.reset(reset),
@@ -206,7 +206,7 @@ Register_t4
 
 
 Register
-Register_t5
+Register_a3
 (
 	.clk(clk),
 	.reset(reset),
@@ -218,7 +218,7 @@ Register_t5
 
 
 Register
-Register_t6
+Register_a4
 (
 	.clk(clk),
 	.reset(reset),
@@ -230,7 +230,7 @@ Register_t6
 
 
 Register
-Register_t7
+Register_a5
 (
 	.clk(clk),
 	.reset(reset),
@@ -241,7 +241,7 @@ Register_t7
 
 
 Register
-Register_s0
+Register_a6
 (
 	.clk(clk),
 	.reset(reset),
@@ -253,7 +253,7 @@ Register_s0
 
 
 Register
-Register_s1
+Register_a7
 (
 	.clk(clk),
 	.reset(reset),
@@ -341,7 +341,7 @@ Register_s7
 
 
 Register
-Register_t8
+Register_s8
 (
 	.clk(clk),
 	.reset(reset),
@@ -351,7 +351,7 @@ Register_t8
 );
 
 Register
-Register_t9
+Register_s9
 (
 	.clk(clk),
 	.reset(reset),
@@ -363,7 +363,7 @@ Register_t9
 
 
 Register
-Register_k0
+Register_s10
 (
 	.clk(clk),
 	.reset(reset),
@@ -375,7 +375,7 @@ Register_k0
 
 
 Register
-Register_k1
+Register_s11
 (
 	.clk(clk),
 	.reset(reset),
@@ -387,7 +387,7 @@ Register_k1
 
 
 Register
-Register_gp
+Register_t3
 (
 	.clk(clk),
 	.reset(reset),
@@ -398,7 +398,7 @@ Register_gp
 
 
 Register
-Register_sp
+Register_t4
 (
 	.clk(clk),
 	.reset(reset),
@@ -411,7 +411,7 @@ Register_sp
 
 
 Register
-Register_fp
+Register_t5
 (
 	.clk(clk),
 	.reset(reset),
@@ -423,7 +423,7 @@ Register_fp
 
 
 Register
-Register_ra
+Register_t6
 (
 	.clk(clk),
 	.reset(reset),

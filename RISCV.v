@@ -2,7 +2,7 @@
 * Description
 *	RISCV TOP MODULE
 * Author:
-*	Jesus Martin Barroso
+*	Jesus MArtin Barroso
 * email:
 *	jesus.martin@iteso.mx
 * Date:
@@ -21,6 +21,7 @@ module RISCV
 	output [7:0]gpio_port_in,
 	output [7:0]gpio_port_out
 );
+
 wire [31:0]PC_w;
 wire [31:0]OldPC_w;
 wire [31:0]Addr_w;
@@ -42,11 +43,10 @@ wire [2:0] ALUCtrl_w;
 wire [1:0] ALUsrcA_w;
 wire [1:0] ALUsrcB_w;
 wire [1:0]ResultSrc_w;
+wire Branch_w;
 wire PC_WR_w;
 wire AdrSrc_w;
-wire MemWr_w;
 wire IRWr_w;
-wire RegW_w;
 wire zero_w;
 wire PCWR_w;
 wire AdrSrc_sel_w;
@@ -59,7 +59,7 @@ ProgramCounter
 (
 	.clk(clk),
 	.reset(reset),
-	.enable(PCWR_w),
+	.enable(PCWR_w || Branch_w),
 	.NewPC(MuxResult_w),
 	.PCValue(PC_w)
 );
@@ -126,7 +126,7 @@ RegisterFile
 	.WriteRegister(Instruction_w[11:7]),
 	.ReadRegister1(Instruction_w[19:15]),
 	.ReadRegister2(Instruction_w[24:20]),
-	.WriteData(MuxResult_w),
+	.WriteData(MuxResult_w),	
 	.ReadData1(ReadReg1_Data_w),
 	.ReadData2(ReadReg2_Data_w)
 
@@ -200,7 +200,7 @@ Mux_3_1 ResultSrc_Mux
 FSM_Control	Control
 (
   .clk(clk),
-  .rst(rst),
+  .rst(reset),
   .zero(zero_w),
   .opcode(Instruction_w[6:0]),
   .Funct3(Instruction_w[14:12]),
@@ -210,6 +210,7 @@ FSM_Control	Control
   .MemWrite(MemWrite_w),
   .IRWrite(IRWrite_w),
   .RegWrite(RegWrite_w),
+  .Branch(Branch_w),
   .ImmSrc(ImmSel_w),
   .ALUsrcA(ALUsrcA_w),
   .ALUsrcB(ALUsrcB_w),
