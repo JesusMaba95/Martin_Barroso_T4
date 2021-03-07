@@ -17,6 +17,7 @@ module RISCV
 	input clk,
 	input reset,
 	input  [7:0]gpio_port_in,
+	output clk_out,
 	output [7:0]gpio_port_out
 );
 wire[(DATA_WIDTH-1):0]ReadData_w;
@@ -30,10 +31,23 @@ wire[(DATA_WIDTH-1):0]Ctrl2ID_WriteData_w;
 wire[(DATA_WIDTH-1):0]GPIO_WriteData_w;
 wire GPIO_enable;
 wire Ctrl2ID_Mem_Write_w;
+wire clk_1hz;
+
+assign clk_out = clk_1hz;
+
+Clock_Divider clk_divider
+(
+	// Input Ports
+	.clk_in(clk),
+	.rst(reset),
+	.en(1'b1),
+	// Output Ports
+	.clk_out(clk_1hz)
+);
 
 CORE CORE_i
 (
-	.clk(clk),
+	.clk(clk_1hz),
 	.reset(reset),
 	.ReadData_i(ReadData_w),
 	.Address_o(Addres_w),
@@ -60,7 +74,7 @@ MemControl X
 
 Register GPIO
 (
-  .clk(clk),
+  .clk(clk_1hz),
   .reset(reset),
   .enable(GPIO_enable),
   .DataInput(GPIO_WriteData_w),
@@ -73,7 +87,7 @@ Instruction_Data_Memory ID_MEM
 	.Address(Ctrl2ID_Addres_w),
 	.WriteData(Ctrl2ID_WriteData_w),
 	.MemWrite(Ctrl2ID_Mem_Write_w),
-	.clk(clk),
+	.clk(clk_1hz),
 	.ReadData(Ctrl2ID_ReadData_w)
 );
 endmodule
