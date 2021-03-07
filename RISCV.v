@@ -11,8 +11,6 @@
 
 module RISCV
 #(
-	parameter MEMORY_DEPTH = 32,
-	parameter PC_INCREMENT = 4,
 	parameter DATA_WIDTH = 32
 )
 (
@@ -21,15 +19,15 @@ module RISCV
 	input  [7:0]gpio_port_in,
 	output [7:0]gpio_port_out
 );
-wire[31:0]ReadData_w;
-wire[31:0]Addres_w;
-wire[31:0]WriteData_w;
+wire[(DATA_WIDTH-1):0]ReadData_w;
+wire[(DATA_WIDTH-1):0]Addres_w;
+wire[(DATA_WIDTH-1):0]WriteData_w;
 wire Mem_Write_w;
 
-wire[31:0]Ctrl2ID_ReadData_w;
-wire[31:0]Ctrl2ID_Addres_w;
-wire[31:0]Ctrl2ID_WriteData_w;
-wire[31:0]GPIO_WriteData_w;
+wire[(DATA_WIDTH-1):0]Ctrl2ID_ReadData_w;
+wire[(DATA_WIDTH-1):0]Ctrl2ID_Addres_w;
+wire[(DATA_WIDTH-1):0]Ctrl2ID_WriteData_w;
+wire[(DATA_WIDTH-1):0]GPIO_WriteData_w;
 wire GPIO_enable;
 wire Ctrl2ID_Mem_Write_w;
 

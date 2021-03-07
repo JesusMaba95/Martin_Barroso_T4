@@ -8,27 +8,27 @@ module CORE
 
 	input        clk,
 	input        reset,
-	input[31:0]  ReadData_i,
-	output[31:0] Address_o,
-	output[31:0] WriteData_o,
+	input[(DATA_WIDTH-1):0]  ReadData_i,
+	output[(DATA_WIDTH-1):0] Address_o,
+	output[(DATA_WIDTH-1):0] WriteData_o,
 	output       MemWrite_o
 );
-wire [31:0]PC_w;
-wire [31:0]OldPC_w;
+wire [(DATA_WIDTH-1):0]PC_w;
+wire [(DATA_WIDTH-1):0]OldPC_w;
 //wire [31:0]Addr_w;
 //wire [31:0]ReadData_w;
-wire [31:0]ReadData_w2;
-wire [31:0]Instruction_w;
-wire [31:0]ReadReg1_Data_ff_w;
+wire [(DATA_WIDTH-1):0]ReadData_w2;
+wire [(DATA_WIDTH-1):0]Instruction_w;
+wire [(DATA_WIDTH-1):0]ReadReg1_Data_ff_w;
 //wire [31:0]ReadReg2_Data_ff_w;
-wire [31:0]ReadReg1_Data_w;
-wire [31:0]ReadReg2_Data_w;
-wire [31:0]SrcA_w;
-wire [31:0]SrcB_w;
-wire [31:0]imm_w;
-wire [31:0]ALUResult_w;
-wire [31:0]ALUResult_ff_w;
-wire [31:0]MuxResult_w;
+wire [(DATA_WIDTH-1):0]ReadReg1_Data_w;
+wire [(DATA_WIDTH-1):0]ReadReg2_Data_w;
+wire [(DATA_WIDTH-1):0]SrcA_w;
+wire [(DATA_WIDTH-1):0]SrcB_w;
+wire [(DATA_WIDTH-1):0]imm_w;
+wire [(DATA_WIDTH-1):0]ALUResult_w;
+wire [(DATA_WIDTH-1):0]ALUResult_ff_w;
+wire [(DATA_WIDTH-1):0]MuxResult_w;
 wire [2:0] ImmSel_w;
 wire [2:0] ALUCtrl_w;
 wire [1:0] ALUsrcA_w;
@@ -148,7 +148,7 @@ Mux_3_1 Mux_SrcB
 	.sel(ALUsrcB_w),
 	.In0(WriteData_o),
 	.In1(imm_w),
-	.In2(32'h4),
+	.In2(PC_INCREMENT),
 	.Output(SrcB_w)
 );
 ImmGen ImmGen_i 

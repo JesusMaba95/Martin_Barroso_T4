@@ -15,7 +15,7 @@
 
 module RISCV_TB;
 reg clk = 0;
-reg rst = 0;
+reg rst = 1;
 reg [31:0] gpio_in  = 32'h0000_0001;
 wire [7:0]gpio_out;
   
