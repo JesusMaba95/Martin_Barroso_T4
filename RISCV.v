@@ -17,7 +17,7 @@ module RISCV
 	input clk,
 	input reset,
 	input  [7:0]gpio_port_in,
-	output clk_out,
+	//output clk_out,
 	output [7:0]gpio_port_out
 );
 wire[(DATA_WIDTH-1):0]ReadData_w;
@@ -33,7 +33,7 @@ wire GPIO_enable;
 wire Ctrl2ID_Mem_Write_w;
 wire clk_1hz;
 
-assign clk_out = clk_1hz;
+//assign clk_out = clk_1hz;
 
 Clock_Divider clk_divider
 (
