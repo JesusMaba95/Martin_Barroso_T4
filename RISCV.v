@@ -18,13 +18,20 @@ module RISCV
 (
 	input clk,
 	input reset,
-	output [7:0]gpio_port_in,
+	input  [7:0]gpio_port_in,
 	output [7:0]gpio_port_out
 );
 wire[31:0]ReadData_w;
 wire[31:0]Addres_w;
 wire[31:0]WriteData_w;
 wire Mem_Write_w;
+
+wire[31:0]Ctrl2ID_ReadData_w;
+wire[31:0]Ctrl2ID_Addres_w;
+wire[31:0]Ctrl2ID_WriteData_w;
+wire[31:0]GPIO_WriteData_w;
+wire GPIO_enable;
+wire Ctrl2ID_Mem_Write_w;
 
 CORE CORE_i
 (
@@ -35,12 +42,40 @@ CORE CORE_i
 	.WriteData_o(WriteData_w),
 	.MemWrite_o(Mem_Write_w)
 );
-Instruction_Data_Memory ID_MEM
+MemControl X
 (
+   //CORE
 	.Address(Addres_w),
 	.WriteData(WriteData_w),
 	.MemWrite(Mem_Write_w),
+	.ReadData(ReadData_w),
+	//ID MEM Interface
+	.ID_Address(Ctrl2ID_Addres_w),
+	.ID_WriteData(Ctrl2ID_WriteData_w),
+	.ID_MemWrite(Ctrl2ID_Mem_Write_w),
+	.ID_ReadData(Ctrl2ID_ReadData_w),
+	//GPIOS
+	.GPIO_WriteData(GPIO_WriteData_w),
+	.GPIO_MemWrite(GPIO_enable),
+	.GPIO_ReadData({24'b0000_0000_0000_0000_0000_0000,gpio_port_in})
+);
+
+Register GPIO
+(
+  .clk(clk),
+  .reset(reset),
+  .enable(GPIO_enable),
+  .DataInput(GPIO_WriteData_w),
+  .DataOutput(gpio_port_out)
+  
+);
+
+Instruction_Data_Memory ID_MEM
+(
+	.Address(Ctrl2ID_Addres_w),
+	.WriteData(Ctrl2ID_WriteData_w),
+	.MemWrite(Ctrl2ID_Mem_Write_w),
 	.clk(clk),
-	.ReadData(ReadData_w)
+	.ReadData(Ctrl2ID_ReadData_w)
 );
 endmodule

@@ -10,18 +10,22 @@
 *	jesus.martin@iteso.mx
 * Date:
 *	27/02/2021
+
 ******************************************************************/
 
 module RISCV_TB;
 reg clk = 0;
 reg rst = 0;
-
+reg [31:0] gpio_in  = 32'h0000_0001;
+wire [7:0]gpio_out;
   
 RISCV
 DUT
 (
 	.clk(clk),
-	.reset(rst)
+	.reset(rst),
+	.gpio_port_in(gpio_in),
+	.gpio_port_out(gpio_out)
 
 
 );
